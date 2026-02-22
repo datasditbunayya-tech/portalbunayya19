@@ -20,22 +20,113 @@
 
 // ─── MOCK DATA ────────────────────────────────────────────────────────────────
 const MOCK_TEACHERS = [
-  { id: "t1", nip: "19850101001", nama: "Ustadz Ahmad Fauzi", email: "ahmad@bunayya.sch.id", kelas: "Kelas 1", status: "Aktif" },
-  { id: "t2", nip: "19870215002", nama: "Ustadzah Siti Rahmah", email: "siti@bunayya.sch.id", kelas: "Kelas 2", status: "Aktif" },
-  { id: "t3", nip: "19900320003", nama: "Ustadz Hasan Basri", email: "hasan@bunayya.sch.id", kelas: "Kelas 3", status: "Aktif" },
-  { id: "t4", nip: "19880610004", nama: "Ustadzah Fatimah Zahra", email: "fatimah@bunayya.sch.id", kelas: "TK A", status: "Aktif" },
+  { id: "t1",  nip: "256", nama: "Nurochman",            email: "rohmane@gmail.com",                                  hp: "081274444498",       kelas: "Kelas 5",         status: "Aktif", alamat: "PANARAGAN JAYA RT 5 RW 2" },
+  { id: "t2",  nip: "257", nama: "Hasnal Labibah",        email: "hasnal131@admin.paud.belajar.id",                    hp: "081274444498",       kelas: "Kepala Sekolah",  status: "Aktif", alamat: "PANARAGAN JAYA RT 5 RW 2" },
+  { id: "t3",  nip: "260", nama: "Nilayana",              email: "nilayana96@gmail.com",                               hp: "+62 877-6324-0377",  kelas: "TK A",            status: "Aktif", alamat: "PANARAGAN JAYA" },
+  { id: "t4",  nip: "263", nama: "Tri Amelia",            email: "triamelia794@gmail.com",                             hp: "+62 853-7951-3552",  kelas: "Kelas 3",         status: "Aktif", alamat: "PANARAGAN JAYA RT 5 RW 3" },
+  { id: "t5",  nip: "258", nama: "Bhika Pratami",         email: "bhikapratami987@gmail.com",                          hp: "+62 857-8947-1408",  kelas: "TK B",            status: "Aktif", alamat: "PANARAGAN JAYA RT 5 RW 4" },
+  { id: "t6",  nip: "262", nama: "Anggun Fajar Wati",     email: "anggunfajarwati@gmail.com",                          hp: "+62 857-8947-1408",  kelas: "TK B",            status: "Aktif", alamat: "PANARAGAN JAYA RT 5 RW 4" },
+  { id: "t7",  nip: "292", nama: "Latifah",               email: "samiati010224@gmail.com",                            hp: "+62 823-5256-4989",  kelas: "TK B",            status: "Aktif", alamat: "PANARAGAN JAYA" },
+  { id: "t8",  nip: "259", nama: "Alfi Amelia",           email: "amaliaalfi63@gmail.com",                             hp: "+62 858-4050-9114",  kelas: "TK B",            status: "Aktif", alamat: "PANARAGAN JAYA RT 5 RW 5" },
+  { id: "t9",  nip: "261", nama: "Ismia Rahma Faradisa",  email: "ismiarahmafaradisa@gmail.com",                       hp: "+62 821-8092-8781",  kelas: "Wali Kelas",      status: "Aktif", alamat: "PANARAGAN JAYA" },
+  { id: "t10", nip: "293", nama: "Sulistiyono",           email: "sulistiyono.abusalwa@gmail.com",                     hp: "+62 852-7310-7272",  kelas: "Kelas 4",         status: "Aktif", alamat: "PANARAGAN JAYA RT 5 RW 6" },
+  { id: "t11", nip: "291", nama: "Bhika Lasmono",         email: "bhikalasmono96@pendidkankesetaraan.belajar.id",      hp: "0856-5891-7882",     kelas: "Kepala Sekolah",  status: "Aktif", alamat: "PANARAGAN JAYA" },
+  { id: "t12", nip: "290", nama: "Mutia Pusparani",       email: "mutiarani9988@gmail.com",                            hp: "0856-5891-7882",     kelas: "Kelas 1",         status: "Aktif", alamat: "PANARAGAN JAYA RT 5 RW 7" },
 ];
 
 const MOCK_STUDENTS = [
-  { id: "s1", nis: "2024001", nama: "Muhammad Zidan Hakim", class_name: "Kelas 1" },
-  { id: "s2", nis: "2024002", nama: "Aisyah Putri Ramadhani", class_name: "Kelas 1" },
-  { id: "s3", nis: "2024003", nama: "Abdullah Faiq Nur", class_name: "Kelas 2" },
-  { id: "s4", nis: "2024004", nama: "Khadijah Salma Wati", class_name: "Kelas 2" },
-  { id: "s5", nis: "2024005", nama: "Umar Ibrahim Siddiq", class_name: "Kelas 3" },
-  { id: "s6", nis: "2024006", nama: "Hafshah Nur Hayati", class_name: "Kelas 3" },
-  { id: "s7", nis: "2024007", nama: "Yahya Dzulqarnain", class_name: "TK A" },
-  { id: "s8", nis: "2024008", nama: "Maryam Azzahra", class_name: "TK A" },
-  { id: "s9", nis: "2024009", nama: "Bilal Hassan Al-Amin", class_name: "Kelas 1" },
+  { id: "s1", nis: "201", nama: "Aisyah Humairo Annur", class_name: "Kelas 5" },
+  { id: "s2", nis: "202", nama: "Faiza Alya Azizah", class_name: "Kelas 5" },
+  { id: "s3", nis: "203", nama: "Muhammad Arkaan Mubarrok Hutapea", class_name: "Kelas 5" },
+  { id: "s4", nis: "204", nama: "Rayzaka Azhari", class_name: "Kelas 5" },
+  { id: "s5", nis: "231", nama: "ABRISAM KAMIL DEPATI", class_name: "Kelas 5" },
+  { id: "s6", nis: "205", nama: "AHMAD ZAEN MALEEQ", class_name: "Kelas 4" },
+  { id: "s7", nis: "206", nama: "ANWAR SHOFWAN ROMADHON", class_name: "Kelas 4" },
+  { id: "s8", nis: "207", nama: "EARLYTA SARLINA SALSABILA", class_name: "Kelas 4" },
+  { id: "s9", nis: "208", nama: "JIBRIL UBAIDILLAH ASSUWAYYID", class_name: "Kelas 4" },
+  { id: "s10", nis: "209", nama: "MUHAMMAD DIRGA AZANI", class_name: "Kelas 4" },
+  { id: "s11", nis: "210", nama: "OKSA TIARA ASY SYIFA", class_name: "Kelas 4" },
+  { id: "s12", nis: "211", nama: "REVANI PRITA AGUSTIN", class_name: "Kelas 4" },
+  { id: "s13", nis: "212", nama: "ZAYYAN YUSRON KAMIL", class_name: "Kelas 4" },
+  { id: "s14", nis: "288", nama: "ZAKARIA", class_name: "Kelas 4" },
+  { id: "s15", nis: "214", nama: "Anindiya Hafizah Az-Zahra", class_name: "Kelas 3" },
+  { id: "s16", nis: "215", nama: "Dyna Salsabila", class_name: "Kelas 3" },
+  { id: "s17", nis: "216", nama: "Hanifa Zahratusita", class_name: "Kelas 3" },
+  { id: "s18", nis: "217", nama: "Raziq Zakir Azhari", class_name: "Kelas 3" },
+  { id: "s19", nis: "219", nama: "Shiha Rasyih Al-Fatih", class_name: "Kelas 3" },
+  { id: "s20", nis: "220", nama: "Afika Inara Zanati", class_name: "Kelas 3" },
+  { id: "s21", nis: "221", nama: "Abid Zakki Hafiz Maulana", class_name: "Kelas 2" },
+  { id: "s22", nis: "222", nama: "Alfian Izzam Pranata", class_name: "Kelas 2" },
+  { id: "s23", nis: "223", nama: "Arha Bira Rajabi", class_name: "Kelas 2" },
+  { id: "s24", nis: "224", nama: "Askhana Sakhi Fitriyani", class_name: "Kelas 2" },
+  { id: "s25", nis: "225", nama: "Hanif Raffasya Sofian", class_name: "Kelas 2" },
+  { id: "s26", nis: "226", nama: "M Habib Al Fatih", class_name: "Kelas 2" },
+  { id: "s27", nis: "227", nama: "Muhammad Rifki Aryatama", class_name: "Kelas 2" },
+  { id: "s28", nis: "228", nama: "Taqiyuddin Annur", class_name: "Kelas 2" },
+  { id: "s29", nis: "229", nama: "Gibran Arya Jaya", class_name: "Kelas 2" },
+  { id: "s30", nis: "232", nama: "AKMA NAUFAL MAHADAN", class_name: "Kelas 6" },
+  { id: "s31", nis: "233", nama: "QONITA ISMAN TAQIYYA", class_name: "Kelas 6" },
+  { id: "s32", nis: "234", nama: "Khairunnisa Azka Zafira", class_name: "Kelas 6" },
+  { id: "s33", nis: "287", nama: "MUHAMMAD AL-FATIH", class_name: "Kelas 6" },
+  { id: "s34", nis: "119", nama: "Abdurrahman Alhafidz Aribowo", class_name: "Kelas 1" },
+  { id: "s35", nis: "122", nama: "Aghniya Khoirunnisa Depati", class_name: "Kelas 1" },
+  { id: "s36", nis: "125", nama: "Alisya Fitriyatul Muna", class_name: "Kelas 1" },
+  { id: "s37", nis: "130", nama: "Razqia Nurma Azhari", class_name: "Kelas 1" },
+  { id: "s38", nis: "133", nama: "Gibran Aqsan Asyraf", class_name: "Kelas 1" },
+  { id: "s39", nis: "140", nama: "Muhammad Riza Hanafi", class_name: "Kelas 1" },
+  { id: "s40", nis: "145", nama: "Fika Amira Ramadhani", class_name: "Kelas 1" },
+  { id: "s41", nis: "160", nama: "Aretha Cyra Faaiza", class_name: "Kelas 1" },
+  { id: "s42", nis: "170", nama: "Kartika Putri", class_name: "Kelas 1" },
+  { id: "s43", nis: "175", nama: "Muhammad Husain Al Ibsya", class_name: "Kelas 1" },
+  { id: "s44", nis: "179", nama: "Zaskia Khoirunnisa", class_name: "Kelas 1" },
+  { id: "s45", nis: "171", nama: "Khairin Shaquilla Diza", class_name: "TK A" },
+  { id: "s46", nis: "235", nama: "ABDULLAH KASYAFANI DEPATI", class_name: "TK A" },
+  { id: "s47", nis: "237", nama: "Abid Ar Rasyid Riyadi", class_name: "TK A" },
+  { id: "s48", nis: "238", nama: "Ahmad Alsyad Jauhari", class_name: "TK A" },
+  { id: "s49", nis: "239", nama: "Aira Anindira Zalfa", class_name: "TK A" },
+  { id: "s50", nis: "243", nama: "Hifza Rafifah Fitri", class_name: "TK A" },
+  { id: "s51", nis: "244", nama: "Izzam Gasani", class_name: "TK A" },
+  { id: "s52", nis: "245", nama: "M. Zyandru Al Ghilzah Andriyanto", class_name: "TK A" },
+  { id: "s53", nis: "246", nama: "Muhammad Akhmar Al Ghifari", class_name: "TK A" },
+  { id: "s54", nis: "249", nama: "Muhammad Ihsan Al Fatih", class_name: "TK A" },
+  { id: "s55", nis: "251", nama: "Rayyan Alfarizqi Adhiyaksa", class_name: "TK A" },
+  { id: "s56", nis: "253", nama: "Tafasya Mauza Khadijah", class_name: "TK A" },
+  { id: "s57", nis: "255", nama: "Zulaikha Qalesya Putri", class_name: "TK A" },
+  { id: "s58", nis: "273", nama: "Adnan Gaffar Al-Farizqi", class_name: "TK A" },
+  { id: "s59", nis: "275", nama: "Farel Rafisqi Anwar", class_name: "TK A" },
+  { id: "s60", nis: "276", nama: "Atha Hafiz Alfarezi", class_name: "TK A" },
+  { id: "s61", nis: "280", nama: "Rafardhan Rafa Kusuma", class_name: "TK A" },
+  { id: "s62", nis: "281", nama: "Firda Azkayra Ramadani", class_name: "TK A" },
+  { id: "s63", nis: "282", nama: "Faisal Ramadhan Syahputra", class_name: "TK A" },
+  { id: "s64", nis: "284", nama: "Nadifa Ashadiya Kirani", class_name: "TK A" },
+  { id: "s65", nis: "286", nama: "Habibah Fadillah Hilyah", class_name: "TK A" },
+  { id: "s66", nis: "289", nama: "Tolhah Annur", class_name: "TK A" },
+  { id: "s67", nis: "154", nama: "Ahmad Karim", class_name: "TK B" },
+  { id: "s68", nis: "156", nama: "Alesya Alfathunisa", class_name: "TK B" },
+  { id: "s69", nis: "157", nama: "Alfahri Abdurrahman", class_name: "TK B" },
+  { id: "s70", nis: "158", nama: "Andra Keano Wicaksono", class_name: "TK B" },
+  { id: "s71", nis: "159", nama: "Aqila Nurfadilah", class_name: "TK B" },
+  { id: "s72", nis: "162", nama: "Arli Hafizh Yulianto", class_name: "TK B" },
+  { id: "s73", nis: "163", nama: "Arsyila Nayla", class_name: "TK B" },
+  { id: "s74", nis: "168", nama: "Kalila Rifda Al Aqsha", class_name: "TK B" },
+  { id: "s75", nis: "169", nama: "Kanza Asheeqa Jali", class_name: "TK B" },
+  { id: "s76", nis: "173", nama: "M. Zidane Repiansyah", class_name: "TK B" },
+  { id: "s77", nis: "174", nama: "Misha Shaquena Almahyra", class_name: "TK B" },
+  { id: "s78", nis: "176", nama: "Muhammad Zakir Saka", class_name: "TK B" },
+  { id: "s79", nis: "177", nama: "Nayyara Mehrunisa", class_name: "TK B" },
+  { id: "s80", nis: "180", nama: "Muhammad Faiz Alfarizi", class_name: "TK B" },
+  { id: "s81", nis: "236", nama: "Abdurrahman Nizam", class_name: "TK B" },
+  { id: "s82", nis: "240", nama: "Arunika Banafsha Khaira", class_name: "TK B" },
+  { id: "s83", nis: "241", nama: "Fathim Hafizah Ahmad", class_name: "TK B" },
+  { id: "s84", nis: "242", nama: "Fauzia Naura Mikayla", class_name: "TK B" },
+  { id: "s85", nis: "247", nama: "Muhammad Attaqi Surya", class_name: "TK B" },
+  { id: "s86", nis: "248", nama: "Muhammad Ghufran Kusuma", class_name: "TK B" },
+  { id: "s87", nis: "254", nama: "Yusuf Fathlani Avicena", class_name: "TK B" },
+  { id: "s88", nis: "274", nama: "Khaizuran Mizyan", class_name: "TK B" },
+  { id: "s89", nis: "278", nama: "Muhammad Alfarizi Abyan", class_name: "TK B" },
+  { id: "s90", nis: "279", nama: "Kautsarrazky Satria Omar Arkanza", class_name: "TK B" },
+  { id: "s91", nis: "283", nama: "Risqiana Murni Sunjaya", class_name: "TK B" },
+  { id: "s92", nis: "285", nama: "Zaenab", class_name: "TK B" },
 ];
 
 const MOCK_SUBJECTS = [
@@ -68,51 +159,21 @@ const MOCK_ANNOUNCEMENTS = [
   { id: "a2", judul: "Pembagian Rapor", deskripsi: "Rapor dibagikan 22 Desember 2025", icon: "📋" },
 ];
 
-const MOCK_STUDENT_ATTENDANCE = [
-  { id: "sa1", studentId: "s1", tanggal: "2025-12-01", kelas: "Kelas 1", status: "Hadir", student: { nama: "Muhammad Zidan Hakim" } },
-  { id: "sa2", studentId: "s2", tanggal: "2025-12-01", kelas: "Kelas 1", status: "Hadir", student: { nama: "Aisyah Putri Ramadhani" } },
-  { id: "sa3", studentId: "s3", tanggal: "2025-12-01", kelas: "Kelas 2", status: "Sakit", student: { nama: "Abdullah Faiq Nur" } },
-  { id: "sa4", studentId: "s1", tanggal: "2025-12-02", kelas: "Kelas 1", status: "Hadir", student: { nama: "Muhammad Zidan Hakim" } },
-  { id: "sa5", studentId: "s4", tanggal: "2025-12-02", kelas: "Kelas 2", status: "Izin", student: { nama: "Khadijah Salma Wati" } },
-  { id: "sa6", studentId: "s5", tanggal: "2025-12-02", kelas: "Kelas 3", status: "Hadir", student: { nama: "Umar Ibrahim Siddiq" } },
-];
+const MOCK_STUDENT_ATTENDANCE = [];
 
-const MOCK_TEACHER_ATTENDANCE = [
-  { id: "ta1", teacherId: "t1", tanggal: "2025-12-01", kelas: "Kelas 1", status: "Hadir", teacher: { nama: "Ustadz Ahmad Fauzi" } },
-  { id: "ta2", teacherId: "t2", tanggal: "2025-12-01", kelas: "Kelas 2", status: "Hadir", teacher: { nama: "Ustadzah Siti Rahmah" } },
-];
+const MOCK_TEACHER_ATTENDANCE = [];
 
-const MOCK_GRADES = [
-  { id: "g1", studentId: "s1", tanggal: "2025-11-15", kelas: "Kelas 1", mataPelajaran: "Al-Qur'an", jenisNilai: "Harian", skor: 90, student: { nama: "Muhammad Zidan Hakim" } },
-  { id: "g2", studentId: "s2", tanggal: "2025-11-15", kelas: "Kelas 1", mataPelajaran: "Matematika", jenisNilai: "UTS", skor: 85, student: { nama: "Aisyah Putri Ramadhani" } },
-  { id: "g3", studentId: "s3", tanggal: "2025-11-20", kelas: "Kelas 2", mataPelajaran: "Al-Qur'an", jenisNilai: "Tugas", skor: 88, student: { nama: "Abdullah Faiq Nur" } },
-  { id: "g4", studentId: "s1", tanggal: "2025-11-25", kelas: "Kelas 1", mataPelajaran: "Fiqih", jenisNilai: "UAS", skor: 92, student: { nama: "Muhammad Zidan Hakim" } },
-  { id: "g5", studentId: "s4", tanggal: "2025-11-25", kelas: "Kelas 2", mataPelajaran: "Bahasa Arab", jenisNilai: "Harian", skor: 78, student: { nama: "Khadijah Salma Wati" } },
-];
+const MOCK_GRADES = [];
 
-const MOCK_JOURNALS = [
-  { id: "j1", teacherId: "t1", tanggal: "2025-12-01", kelas: "Kelas 1", mataPelajaran: "Al-Qur'an", topik: "Surat Al-Fatihah", kegiatan: "Membaca dan menghafal", catatan: "Siswa antusias", teacher: { nama: "Ustadz Ahmad Fauzi" } },
-  { id: "j2", teacherId: "t2", tanggal: "2025-12-01", kelas: "Kelas 2", mataPelajaran: "Matematika", topik: "Perkalian 1-10", kegiatan: "Latihan soal", catatan: "Perlu pengulangan", teacher: { nama: "Ustadzah Siti Rahmah" } },
-];
+const MOCK_JOURNALS = [];
 
-const MOCK_DAILY_REPORTS = [
-  { id: "dr1", studentId: "s1", tanggal: "2025-12-01", kelas: "Kelas 1", bahasan: "Iqro Jilid 3 Hal 15", halaman: "15", hasil: "Baik", catatan: "Lancar membaca" },
-  { id: "dr2", studentId: "s1", tanggal: "2025-12-02", kelas: "Kelas 1", bahasan: "Iqro Jilid 3 Hal 16", halaman: "16", hasil: "Baik", catatan: "" },
-];
+const MOCK_DAILY_REPORTS = [];
 
-const MOCK_ACTIVITIES = [
-  { id: "ac1", studentId: "s1", tanggal: "2025-11-30", kelas: "Kelas 1", kategori: "Keagamaan", penilaian: "Sangat Baik", deskripsi: "Ikut lomba azan" },
-  { id: "ac2", studentId: "s1", tanggal: "2025-12-01", kelas: "Kelas 1", kategori: "Olahraga", penilaian: "Baik", deskripsi: "Senam pagi" },
-];
+const MOCK_ACTIVITIES = [];
 
-const MOCK_TARGETS = [
-  { id: "tr1", studentId: "s1", tanggal: "2025-11-01", kelas: "Kelas 1", mataPelajaran: "Al-Qur'an", progressSaatIni: 15, progressTotal: 30, satuan: "juz", hasil: "Berjalan", catatan: "" },
-];
+const MOCK_TARGETS = [];
 
-const MOCK_ZIYADAH = [
-  { id: "z1", studentId: "s1", tanggal: "2025-12-01", kelas: "Kelas 1", juz: "Juz 30(3)", surat: "Al-Ikhlas", progress: "Selesai", hasil: "Lancar", catatan: "" },
-  { id: "z2", studentId: "s1", tanggal: "2025-11-28", kelas: "Kelas 1", juz: "Juz 30(3)", surat: "Al-Falaq", progress: "Selesai", hasil: "Lancar", catatan: "" },
-];
+const MOCK_ZIYADAH = [];
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const KELAS_LIST = ["Semua", "TK A", "TK B", "Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"];
@@ -634,7 +695,7 @@ function App() {
 
   // ── Google Sheets Integration ─────────────────────────────────────────────
   // Tempel Web App URL dari Google Apps Script setelah Deploy
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxO-CKHDVyJIJV9XtJAccsYsMsLMw1te9utffXKW0B8rZ5zZEaBlMXCnR9eTGneR9e/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJt4my8JgHyasiEiVbkuD1Ao5B-4dRKO_FGQtdFA6xz0Xd-NBiZxcPI89SqzwlTXx7/exec";
   const [syncStatus, setSyncStatus] = useState("idle"); // idle | syncing | success | error
   const [syncMsg, setSyncMsg]       = useState("");
   const [lastSync, setLastSync]     = useState(null);
