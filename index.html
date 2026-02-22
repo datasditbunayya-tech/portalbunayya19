@@ -759,7 +759,7 @@ function App() {
 
   // ── Google Sheets Integration ─────────────────────────────────────────────
   // Tempel Web App URL dari Google Apps Script setelah Deploy
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJt4my8JgHyasiEiVbkuD1Ao5B-4dRKO_FGQtdFA6xz0Xd-NBiZxcPI89SqzwlTXx7/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygHLS6NhBkljtykqwXJzhsoIRubMS4qNkuld1Yiv50mD4GNsJVB3RCxHDlXQsjtiD1/exec";
   const [syncStatus, setSyncStatus] = useState("idle"); // idle | syncing | success | error
   const [syncMsg, setSyncMsg]       = useState("");
   const [lastSync, setLastSync]     = useState(null);
@@ -961,21 +961,27 @@ function App() {
     };
   });
 
+  // ── Google Sheets fetch helper ───────────────────────────────────────────
+  // GAS tidak support preflight CORS untuk application/json
+  // Solusi: kirim sebagai text/plain — GAS baca dari e.postData.contents
+  const gsPost = async (payload) => {
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(payload),
+    });
+    return res.json();
+  };
+
   const syncCollection = async (sheetKey, records) => {
     if (!GS_ENABLED) return;
     const resolved = resolveNames(records, sheetKey);
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      body: JSON.stringify({ action: "insert", sheet: sheetKey, data: resolved }),
-    });
+    try { await gsPost({ action: "insert", sheet: sheetKey, data: resolved }); } catch(e) {}
   };
 
   const syncDelete = async (sheetKey, id) => {
     if (!GS_ENABLED) return;
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      body: JSON.stringify({ action: "delete", sheet: sheetKey, id }),
-    });
+    try { await gsPost({ action: "delete", sheet: sheetKey, id }); } catch(e) {}
   };
 
   const syncAllToSheets = async () => {
@@ -983,7 +989,8 @@ function App() {
     setSyncStatus("syncing");
     setSyncMsg("Menyinkronkan semua data...");
     try {
-      const allData = {
+      // Kirim per-sheet agar tidak melebihi batas payload
+      const sheets = {
         absensiSiswa: resolveNames(data.studentAttendance),
         absensiGuru:  resolveNames(data.teacherAttendance),
         jurnal:       resolveNames(data.journals),
@@ -995,25 +1002,41 @@ function App() {
         guru:         data.teachers,
         siswa:        data.students,
       };
-      const res = await fetch(SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify({ action: "syncAll", allData }),
-      });
-      const json = await res.json();
-      if (json.status === "ok") {
+
+      let totalRows = 0;
+      const errors = [];
+
+      for (const [key, rows] of Object.entries(sheets)) {
+        try {
+          // Hapus dulu isi sheet lama
+          await gsPost({ action: "clearSheet", sheet: key });
+          // Insert batch (max 200 baris per request)
+          const BATCH = 150;
+          for (let i = 0; i < rows.length; i += BATCH) {
+            const batch = rows.slice(i, i + BATCH);
+            if (batch.length > 0) {
+              await gsPost({ action: "insert", sheet: key, data: batch });
+            }
+          }
+          totalRows += rows.length;
+        } catch (e) {
+          errors.push(key + ": " + e.message);
+        }
+      }
+
+      if (errors.length === 0) {
         setSyncStatus("success");
-        const total = Object.values(json.synced || {}).reduce((a, b) => a + b, 0);
-        setSyncMsg(`✅ ${total} baris berhasil disinkronkan ke Google Sheets`);
+        setSyncMsg(`✅ ${totalRows} baris berhasil disinkronkan ke Google Sheets`);
         setLastSync(new Date().toLocaleString("id-ID"));
       } else {
         setSyncStatus("error");
-        setSyncMsg("❌ Error: " + (json.message || "Gagal sync"));
+        setSyncMsg("⚠️ Sebagian gagal: " + errors.join(", "));
       }
     } catch (err) {
       setSyncStatus("error");
-      setSyncMsg("❌ Gagal terhubung ke Google Sheets: " + err.message);
+      setSyncMsg("❌ Gagal: " + err.message);
     }
-    setTimeout(() => { setSyncStatus("idle"); setSyncMsg(""); }, 5000);
+    setTimeout(() => { setSyncStatus("idle"); setSyncMsg(""); }, 6000);
   };
 
   const [deleteConfirm, setDeleteConfirm] = useState(null); // { collection, id, label }

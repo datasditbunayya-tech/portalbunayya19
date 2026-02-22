@@ -187,9 +187,14 @@ function doGet(e) {
 function doPost(e) {
   try {
     const ss      = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const body    = JSON.parse(e.postData.contents);
+    // Support both application/json and text/plain (untuk CORS compatibility)
+    let rawBody = "";
+    try { rawBody = e.postData.contents; } catch(ex) { rawBody = "{}"; }
+    if (!rawBody || rawBody.trim() === "") rawBody = "{}";
+    const body = JSON.parse(rawBody);
     const { action, sheet: sheetKey, data, id } = body;
 
+    // clearSheet tidak perlu validasi sheetKey di sini (sudah di atas)
     if (!sheetKey || !SHEETS[sheetKey]) {
       return setCorsHeaders(ContentService.createTextOutput(
         JSON.stringify({ status: "error", message: "Sheet key tidak valid: " + sheetKey })
@@ -237,6 +242,18 @@ function doPost(e) {
       return setCorsHeaders(ContentService.createTextOutput(
         JSON.stringify({ status: "ok", message: "Data berhasil dihapus", id })
       ));
+    }
+
+    // ── CLEAR SHEET (hapus semua baris kecuali header) ──────────────────────
+    if (action === "clearSheet") {
+      if (sheetKey && SHEETS[sheetKey]) {
+        const s = getOrCreateSheet(ss, SHEETS[sheetKey].name, SHEETS[sheetKey].headers);
+        if (s.getLastRow() > 1) s.deleteRows(2, s.getLastRow() - 1);
+        writeLog(ss, "CLEAR", SHEETS[sheetKey].name, {}, body.user);
+        return setCorsHeaders(ContentService.createTextOutput(
+          JSON.stringify({ status: "ok", message: "Sheet dikosongkan: " + SHEETS[sheetKey].name })
+        ));
+      }
     }
 
     // ── SYNC SEMUA (bulk replace seluruh sheet) ───────────────────────────
@@ -779,4 +796,13 @@ function menuHitungTotal() {
   msg += `  TOTAL: ${grandTotal} baris`;
 
   SpreadsheetApp.getUi().alert("🔢 Hitung Total Data", msg, SpreadsheetApp.getUi().ButtonSet.OK);
+}
+
+// ── Handle OPTIONS preflight (CORS) ──────────────────────────────────────────
+function doOptions(e) {
+  return ContentService.createTextOutput("")
+    .setMimeType(ContentService.MimeType.TEXT)
+    .addHeader("Access-Control-Allow-Origin", "*")
+    .addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 }
