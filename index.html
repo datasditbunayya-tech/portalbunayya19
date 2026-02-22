@@ -7,6 +7,7 @@
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: "DM Sans", system-ui, sans-serif; background: #f5f5f0; }
@@ -139,13 +140,75 @@ const MOCK_SUBJECTS = [
 ];
 
 const MOCK_SURAHS = [
-  { id: "sr1", juz: "Juz 30(1)", nama: "An-Naba", ayat: 40 },
-  { id: "sr2", juz: "Juz 30(1)", nama: "An-Nazi'at", ayat: 46 },
-  { id: "sr3", juz: "Juz 30(2)", nama: "Al-Ghashiyah", ayat: 26 },
-  { id: "sr4", juz: "Juz 30(2)", nama: "Al-Fajr", ayat: 30 },
-  { id: "sr5", juz: "Juz 30(3)", nama: "Al-Falaq", ayat: 5 },
-  { id: "sr6", juz: "Juz 30(3)", nama: "An-Nas", ayat: 6 },
-  { id: "sr7", juz: "Juz 30(3)", nama: "Al-Ikhlas", ayat: 4 },
+  { id:"sr1",  juz:"Juz 26", nama:"Al-Ahqaf",      ayat:35 },
+  { id:"sr2",  juz:"Juz 26", nama:"Muhammad",        ayat:38 },
+  { id:"sr3",  juz:"Juz 26", nama:"Al-Fath",         ayat:29 },
+  { id:"sr4",  juz:"Juz 26", nama:"Al-Hujurat",      ayat:18 },
+  { id:"sr5",  juz:"Juz 26", nama:"Qaf",             ayat:45 },
+  { id:"sr6",  juz:"Juz 27", nama:"Adz-Dzariyat",   ayat:60 },
+  { id:"sr7",  juz:"Juz 27", nama:"Ath-Thur",        ayat:49 },
+  { id:"sr8",  juz:"Juz 27", nama:"An-Najm",         ayat:62 },
+  { id:"sr9",  juz:"Juz 27", nama:"Al-Qamar",        ayat:55 },
+  { id:"sr10", juz:"Juz 27", nama:"Ar-Rahman",       ayat:78 },
+  { id:"sr11", juz:"Juz 27", nama:"Al-Waqi'ah",      ayat:96 },
+  { id:"sr12", juz:"Juz 27", nama:"Al-Hadid",        ayat:29 },
+  { id:"sr13", juz:"Juz 28", nama:"Al-Mujadilah",    ayat:22 },
+  { id:"sr14", juz:"Juz 28", nama:"Al-Hasyr",        ayat:24 },
+  { id:"sr15", juz:"Juz 28", nama:"Al-Mumtahanah",   ayat:13 },
+  { id:"sr16", juz:"Juz 28", nama:"Ash-Shaff",       ayat:14 },
+  { id:"sr17", juz:"Juz 28", nama:"Al-Jumu'ah",      ayat:11 },
+  { id:"sr18", juz:"Juz 28", nama:"Al-Munafiqun",    ayat:11 },
+  { id:"sr19", juz:"Juz 28", nama:"At-Taghabun",     ayat:18 },
+  { id:"sr20", juz:"Juz 28", nama:"At-Talaq",        ayat:12 },
+  { id:"sr21", juz:"Juz 28", nama:"At-Tahrim",       ayat:12 },
+  { id:"sr22", juz:"Juz 29", nama:"Al-Mulk",         ayat:30 },
+  { id:"sr23", juz:"Juz 29", nama:"Al-Qalam",        ayat:52 },
+  { id:"sr24", juz:"Juz 29", nama:"Al-Haqqah",       ayat:52 },
+  { id:"sr25", juz:"Juz 29", nama:"Al-Ma'arij",      ayat:44 },
+  { id:"sr26", juz:"Juz 29", nama:"Nuh",             ayat:28 },
+  { id:"sr27", juz:"Juz 29", nama:"Al-Jinn",         ayat:28 },
+  { id:"sr28", juz:"Juz 29", nama:"Al-Muzzammil",    ayat:20 },
+  { id:"sr29", juz:"Juz 29", nama:"Al-Muddatstsir",  ayat:56 },
+  { id:"sr30", juz:"Juz 29", nama:"Al-Qiyamah",      ayat:40 },
+  { id:"sr31", juz:"Juz 29", nama:"Al-Insan",        ayat:31 },
+  { id:"sr32", juz:"Juz 29", nama:"Al-Mursalat",     ayat:50 },
+  { id:"sr33", juz:"Juz 30(1)", nama:"An-Naba'",     ayat:40 },
+  { id:"sr34", juz:"Juz 30(1)", nama:"An-Nazi'at",   ayat:46 },
+  { id:"sr35", juz:"Juz 30(1)", nama:"'Abasa",       ayat:42 },
+  { id:"sr36", juz:"Juz 30(1)", nama:"At-Takwir",    ayat:29 },
+  { id:"sr37", juz:"Juz 30(1)", nama:"Al-Infitar",   ayat:19 },
+  { id:"sr38", juz:"Juz 30(1)", nama:"Al-Mutaffifin",ayat:36 },
+  { id:"sr39", juz:"Juz 30(1)", nama:"Al-Inshiqaq",  ayat:25 },
+  { id:"sr40", juz:"Juz 30(1)", nama:"Al-Buruj",     ayat:22 },
+  { id:"sr41", juz:"Juz 30(1)", nama:"At-Tariq",     ayat:17 },
+  { id:"sr42", juz:"Juz 30(2)", nama:"Al-A'la",      ayat:19 },
+  { id:"sr43", juz:"Juz 30(2)", nama:"Al-Ghashiyah", ayat:26 },
+  { id:"sr44", juz:"Juz 30(2)", nama:"Al-Fajr",      ayat:30 },
+  { id:"sr45", juz:"Juz 30(2)", nama:"Al-Balad",     ayat:20 },
+  { id:"sr46", juz:"Juz 30(2)", nama:"Ash-Shams",    ayat:15 },
+  { id:"sr47", juz:"Juz 30(2)", nama:"Al-Layl",      ayat:21 },
+  { id:"sr48", juz:"Juz 30(2)", nama:"Ad-Duha",      ayat:11 },
+  { id:"sr49", juz:"Juz 30(2)", nama:"Al-Inshirah",  ayat:8  },
+  { id:"sr50", juz:"Juz 30(2)", nama:"At-Tin",       ayat:8  },
+  { id:"sr51", juz:"Juz 30(2)", nama:"Al-'Alaq",     ayat:19 },
+  { id:"sr52", juz:"Juz 30(2)", nama:"Al-Qadr",      ayat:5  },
+  { id:"sr53", juz:"Juz 30(2)", nama:"Al-Bayyinah",  ayat:8  },
+  { id:"sr54", juz:"Juz 30(2)", nama:"Az-Zalzalah",  ayat:8  },
+  { id:"sr55", juz:"Juz 30(2)", nama:"Al-'Adiyat",   ayat:11 },
+  { id:"sr56", juz:"Juz 30(2)", nama:"Al-Qari'ah",   ayat:11 },
+  { id:"sr57", juz:"Juz 30(2)", nama:"At-Takathur",  ayat:8  },
+  { id:"sr58", juz:"Juz 30(3)", nama:"Al-'Asr",      ayat:3  },
+  { id:"sr59", juz:"Juz 30(3)", nama:"Al-Humazah",   ayat:9  },
+  { id:"sr60", juz:"Juz 30(3)", nama:"Al-Fil",       ayat:5  },
+  { id:"sr61", juz:"Juz 30(3)", nama:"Quraish",      ayat:4  },
+  { id:"sr62", juz:"Juz 30(3)", nama:"Al-Ma'un",     ayat:7  },
+  { id:"sr63", juz:"Juz 30(3)", nama:"Al-Kawthar",   ayat:3  },
+  { id:"sr64", juz:"Juz 30(3)", nama:"Al-Kafirun",   ayat:6  },
+  { id:"sr65", juz:"Juz 30(3)", nama:"An-Nasr",      ayat:3  },
+  { id:"sr66", juz:"Juz 30(3)", nama:"Al-Lahab",     ayat:5  },
+  { id:"sr67", juz:"Juz 30(3)", nama:"Al-Ikhlas",    ayat:4  },
+  { id:"sr68", juz:"Juz 30(3)", nama:"Al-Falaq",     ayat:5  },
+  { id:"sr69", juz:"Juz 30(3)", nama:"An-Nas",       ayat:6  },
 ];
 
 const MOCK_QUICKLINKS = [
@@ -182,7 +245,8 @@ const HASIL_LIST = ["Baik", "Cukup", "Kurang"];
 const PENILAIAN_LIST = ["Sangat Baik", "Baik", "Cukup", "Kurang"];
 const JENIS_NILAI = ["Tugas", "UTS", "UAS", "Harian"];
 const JUZ_LIST = ["Semua", "Juz 26", "Juz 27", "Juz 28", "Juz 29", "Juz 30(1)", "Juz 30(2)", "Juz 30(3)"];
-const HASIL_HAFALAN = ["Lancar", "Cukup", "Perlu Latihan"];
+const HASIL_HAFALAN = ["Lulus", "Tidak Lulus"];
+const HASIL_LULUS = ["Lulus", "Tidak Lulus"];
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
 const today = () => new Date().toISOString().split("T")[0];
@@ -739,7 +803,7 @@ function App() {
   const handleLogin = () => {
     setLoginError("");
     if (loginRole === "admin") {
-      if (loginForm.username === "admin" && loginForm.password === "admin123") {
+      if (loginForm.password === "admin123") {
         setUser({ role: "admin", name: "Administrator" });
         setPortal("guru");
         setMenu("dashboard");
@@ -799,10 +863,13 @@ function App() {
 
   const saveAbsensiGuru = () => {
     const t = data.teachers.find(t => t.id === formData.abs_teacherId);
-    if (!t || !formData.abs_kelasGuru || !formData.abs_tanggalGuru) return;
-    const rec = { id: genId(), teacherId: t.id, tanggal: formData.abs_tanggalGuru, kelas: formData.abs_kelasGuru, status: formData.abs_statusGuru || "Hadir", teacher: { nama: t.nama } };
+    if (!t) return;
+    const kelas = formData.abs_kelasGuru || t.kelas || "-";
+    const tanggal = formData.abs_tanggalGuru || new Date().toISOString().split("T")[0];
+    const rec = { id: genId(), teacherId: t.id, tanggal, kelas, status: formData.abs_statusGuru || "Hadir", teacher: { nama: t.nama } };
     patchData("teacherAttendance", [...data.teacherAttendance, rec]);
     if (GS_ENABLED) syncCollection("absensiGuru", [rec]).catch(() => {});
+    patchForm({ abs_teacherId: "", abs_statusGuru: "Hadir" });
     alert("✅ Absensi guru berhasil disimpan!");
   };
 
@@ -1434,11 +1501,9 @@ function LoginPage({ loginRole, setLoginRole, loginForm, setLoginForm, loginErro
           {loginRole === "admin" && (
             <div className="lp-form-area">
               <div className="lp-form-title">⚙️ Login Admin</div>
-              <input className="lp-input" placeholder="Username" value={loginForm.username} onChange={e => setLoginForm(f => ({ ...f, username: e.target.value }))} />
-              <input className="lp-input" type="password" placeholder="Password" value={loginForm.password} onChange={e => setLoginForm(f => ({ ...f, password: e.target.value }))} onKeyDown={e => e.key === "Enter" && handleLogin()} />
+              <input className="lp-input" type="password" placeholder="Password Admin" value={loginForm.password} onChange={e => setLoginForm(f => ({ ...f, password: e.target.value }))} onKeyDown={e => e.key === "Enter" && handleLogin()} autoFocus />
               {loginError && <div className="lp-error">{loginError}</div>}
               <button className="lp-btn lp-btn-green" onClick={handleLogin}>Masuk</button>
-
             </div>
           )}
 
@@ -1452,7 +1517,7 @@ function LoginPage({ loginRole, setLoginRole, loginForm, setLoginForm, loginErro
                 </select>
               </div>
               {loginForm.teacherId && (
-                <input className="lp-input" type="password" placeholder="Password (NIP atau 1234)" value={loginForm.password} onChange={e => setLoginForm(f => ({ ...f, password: e.target.value }))} onKeyDown={e => e.key === "Enter" && handleLogin()} />
+                <input className="lp-input" type="password" placeholder="Password" value={loginForm.password} onChange={e => setLoginForm(f => ({ ...f, password: e.target.value }))} onKeyDown={e => e.key === "Enter" && handleLogin()} />
               )}
               {loginError && <div className="lp-error">{loginError}</div>}
               {loginForm.teacherId && <button className="lp-btn lp-btn-blue" onClick={handleLogin}>Masuk</button>}
@@ -1466,7 +1531,7 @@ function LoginPage({ loginRole, setLoginRole, loginForm, setLoginForm, loginErro
               <div className="lp-select-wrap">
                 <select className="lp-select" value={loginForm.studentClass} onChange={e => setLoginForm(f => ({ ...f, studentClass: e.target.value, studentId: "" }))}>
                   <option value="">-- Pilih Kelas --</option>
-                  {["TK A", "TK B", "Kelas 1", "Kelas 2", "Kelas 3"].map(k => <option key={k} value={k}>{k}</option>)}
+                  {["TK A", "TK B", "Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"].map(k => <option key={k} value={k}>{k}</option>)}
                 </select>
               </div>
               {loginForm.studentClass && (
@@ -1889,7 +1954,7 @@ function PortalGuru({ menu, data, patchData, formData, patchForm, selectedKelas,
               </select></div>
             </div>
           </div>
-          <button className="btn btn-primary" onClick={saveAbsensiGuru} disabled={!formData.abs_teacherId || !formData.abs_kelasGuru}><Icon.Save /> Simpan Absensi</button>
+          <button className="btn btn-primary" onClick={saveAbsensiGuru} disabled={!formData.abs_teacherId}><Icon.Save /> Simpan Absensi</button>
 
           <div className="mt-6">
             <div style={{ fontWeight: 700, marginBottom: 12 }}>Riwayat Absensi Guru</div>
@@ -2625,7 +2690,15 @@ function PortalSiswa({ menu, data, patchData, formData, patchForm, user, canAcce
                       <div className="card-sub">{students.length} siswa · {kelasActs.length} laporan</div>
                     </div>
                   </div>
-                  <button className="btn btn-outline btn-sm" onClick={() => patchForm({ expandedKgKelas: isOpen ? null : kelas })}>
+                  <button className="btn btn-outline btn-sm" onClick={() => {
+                    if (!isOpen) {
+                      const patch = { expandedKgKelas: kelas };
+                      data.students.filter(s => s.class_name === kelas).forEach(s => {
+                        if (!formData[`kg_p_${kelas}_${s.id}`]) patch[`kg_p_${kelas}_${s.id}`] = "Sangat Baik";
+                      });
+                      patchForm(patch);
+                    } else { patchForm({ expandedKgKelas: null }); }
+                  }}>
                     {isOpen ? "Tutup" : "Input Kegiatan"}
                   </button>
                 </div>
@@ -2793,7 +2866,7 @@ function PortalSiswa({ menu, data, patchData, formData, patchForm, user, canAcce
                 <div className="select-wrap">
                   <select className="select" value={formData.tr_hasil || ""} onChange={e => patchForm({ tr_hasil: e.target.value })}>
                     <option value="">Pilih Hasil</option>
-                    {PENILAIAN_LIST.map(p => <option key={p} value={p}>{p}</option>)}
+                    {HASIL_LULUS.map(p => <option key={p} value={p}>{p}</option>)}
                   </select>
                 </div>
               </div>
@@ -3040,6 +3113,24 @@ function PortalSiswa({ menu, data, patchData, formData, patchForm, user, canAcce
 
 // ─── PORTAL WALI ─────────────────────────────────────────────────────────────
 function PortalWali({ menu, data, formData, patchForm, user }) {
+  const [notifOpen, setNotifOpen] = useState(false);
+  const dashRef = React.useRef(null);
+
+  const downloadDashboard = () => {
+    const node = dashRef.current;
+    if (!node) return;
+    // Use html2canvas via CDN
+    if (typeof html2canvas === "undefined") {
+      alert("⚠️ Library download belum siap, coba lagi sebentar.");
+      return;
+    }
+    html2canvas(node, { scale: 2, useCORS: true, backgroundColor: "#f5f5f0" }).then(canvas => {
+      const link = document.createElement("a");
+      link.download = `rapor-${studentData?.nama || "siswa"}-${new Date().toLocaleDateString("id-ID").replace(/\//g,"-")}.jpg`;
+      link.href = canvas.toDataURL("image/jpeg", 0.92);
+      link.click();
+    });
+  };
   const studentData = user?.role === "student"
     ? data.students.find(s => s.nis === user.nis)
     : data.students.find(s => s.id === formData.wali_siswa);
@@ -3091,9 +3182,84 @@ function PortalWali({ menu, data, formData, patchForm, user }) {
         )}
       </div>
 
+      {/* Notifikasi Bell */}
+      {menu === "dashboard" && studentData && (
+        <div style={{ display:"flex", justifyContent:"flex-end", marginBottom:8 }}>
+          <button onClick={() => setNotifOpen(o => !o)}
+            style={{ position:"relative", background:"#7c3aed", border:"none", borderRadius:50, width:42, height:42, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, boxShadow:"0 2px 8px rgba(124,58,237,.4)" }}>
+            🔔
+            {(() => {
+              const recent = [...(studentData ? data.dailyReports.filter(r=>r.studentId===sid && r.id).slice(-3) : []),
+                              ...(studentData ? data.grades.filter(g=>g.studentId===sid).slice(-2) : [])];
+              return recent.length > 0 ? <span style={{ position:"absolute", top:2, right:2, background:"#ef4444", color:"white", borderRadius:99, fontSize:9, fontWeight:700, padding:"1px 5px" }}>{recent.length}</span> : null;
+            })()}
+          </button>
+          <button onClick={downloadDashboard}
+            style={{ marginLeft:8, background:"#1d7a5f", border:"none", borderRadius:50, width:42, height:42, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:18, boxShadow:"0 2px 8px rgba(29,122,95,.4)" }}
+            title="Download Dashboard sebagai JPG">
+            📥
+          </button>
+        </div>
+      )}
+
+      {/* Notifikasi Panel */}
+      {notifOpen && studentData && (
+        <div style={{ position:"fixed", top:0, right:0, bottom:0, width:320, background:"white", boxShadow:"-4px 0 24px rgba(0,0,0,.15)", zIndex:9999, display:"flex", flexDirection:"column" }}>
+          <div style={{ background:"#7c3aed", color:"white", padding:"16px 20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+            <div style={{ fontWeight:700, fontSize:16 }}>🔔 Notifikasi</div>
+            <button onClick={() => setNotifOpen(false)} style={{ background:"none", border:"none", color:"white", fontSize:22, cursor:"pointer", lineHeight:1 }}>✕</button>
+          </div>
+          <div style={{ flex:1, overflowY:"auto", padding:16 }}>
+            {data.dailyReports.filter(r=>r.studentId===sid).length === 0 && data.grades.filter(g=>g.studentId===sid).length === 0 && data.studentAttendance.filter(a=>a.studentId===sid).length === 0
+              ? <div style={{ textAlign:"center", color:"#aaa", marginTop:40 }}>📭 Belum ada notifikasi</div>
+              : <>
+                {data.dailyReports.filter(r=>r.studentId===sid).slice(-5).reverse().map(r => (
+                  <div key={r.id} style={{ background:"#f0fdf4", borderRadius:10, padding:12, marginBottom:10, borderLeft:"4px solid #1d7a5f" }}>
+                    <div style={{ fontWeight:700, fontSize:13, color:"#065f46" }}>📝 Laporan Harian</div>
+                    <div style={{ fontSize:13, marginTop:2 }}>{r.bahasan}</div>
+                    <div style={{ display:"flex", justifyContent:"space-between", marginTop:6, fontSize:11, color:"#888" }}>
+                      <span>{r.tanggal}</span>
+                      <span style={{ fontWeight:700, color: r.hasil==="Lulus"?"#065f46":"#991b1b" }}>{r.hasil}</span>
+                    </div>
+                  </div>
+                ))}
+                {data.grades.filter(g=>g.studentId===sid).slice(-5).reverse().map(g => (
+                  <div key={g.id} style={{ background:"#eff6ff", borderRadius:10, padding:12, marginBottom:10, borderLeft:"4px solid #2563eb" }}>
+                    <div style={{ fontWeight:700, fontSize:13, color:"#1e40af" }}>📊 Nilai Baru</div>
+                    <div style={{ fontSize:13, marginTop:2 }}>{g.mataPelajaran} — {g.jenisNilai}</div>
+                    <div style={{ display:"flex", justifyContent:"space-between", marginTop:6, fontSize:11, color:"#888" }}>
+                      <span>{g.tanggal}</span>
+                      <span style={{ fontWeight:800, fontSize:16, color: g.skor>=80?"#065f46":g.skor>=60?"#92400e":"#991b1b" }}>{g.skor}</span>
+                    </div>
+                  </div>
+                ))}
+                {data.studentAttendance.filter(a=>a.studentId===sid && a.status!=="Hadir").slice(-5).reverse().map(a => (
+                  <div key={a.id} style={{ background:"#fef3c7", borderRadius:10, padding:12, marginBottom:10, borderLeft:"4px solid #f59e0b" }}>
+                    <div style={{ fontWeight:700, fontSize:13, color:"#92400e" }}>📋 Info Absensi</div>
+                    <div style={{ fontSize:13, marginTop:2 }}>Status: <b>{a.status}</b></div>
+                    <div style={{ fontSize:11, color:"#888", marginTop:4 }}>{a.tanggal} — {a.kelas}</div>
+                  </div>
+                ))}
+                {data.ziyadah.filter(z=>z.studentId===sid).slice(-3).reverse().map(z => (
+                  <div key={z.id} style={{ background:"#f5f3ff", borderRadius:10, padding:12, marginBottom:10, borderLeft:"4px solid #7c3aed" }}>
+                    <div style={{ fontWeight:700, fontSize:13, color:"#5b21b6" }}>📖 Hafalan Dicatat</div>
+                    <div style={{ fontSize:13, marginTop:2 }}>{z.surat} — {z.juz}</div>
+                    <div style={{ display:"flex", justifyContent:"space-between", marginTop:6, fontSize:11, color:"#888" }}>
+                      <span>{z.tanggal}</span>
+                      <span style={{ fontWeight:700, color: z.hasil==="Lulus"?"#065f46":"#991b1b" }}>{z.hasil}</span>
+                    </div>
+                  </div>
+                ))}
+              </>
+            }
+          </div>
+        </div>
+      )}
+      {notifOpen && <div onClick={() => setNotifOpen(false)} style={{ position:"fixed", inset:0, zIndex:9998, background:"rgba(0,0,0,.2)" }} />}
+
       {/* Dashboard */}
       {menu === "dashboard" && (
-        <div>
+        <div ref={dashRef}>
           <div className="grid grid-5 mb-4" style={{ gap: 12 }}>
             {[
               { icon: "✅", label: "Kehadiran", val: `${attPct}%` },
@@ -3207,6 +3373,7 @@ function PortalWali({ menu, data, formData, patchForm, user }) {
               </div>
             </div>
           </div>
+        </div>
         </div>
       )}
 
